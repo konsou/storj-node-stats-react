@@ -1,3 +1,7 @@
+# storj-node-stats-react
+See your Storj node stats from browser 
+Requires CORS rule bypassing browser extension at the moment
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
