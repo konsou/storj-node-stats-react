@@ -8,6 +8,7 @@ const UPTIME_WARN_TRESHOLD = 0.95
 
 const SatelliteInfo = ({ satellite }) => {
     const [ satelliteStats, setSatelliteStats ] = useState(null)
+    const [ error, setError ] = useState(null)
 
     useEffect(() => {
         axios
@@ -17,14 +18,24 @@ const SatelliteInfo = ({ satellite }) => {
             })
             .catch(error => {
                 console.log(error)
+                setError(error)
             })
 
     }, [ satellite ]) // runs once at page load
 
+    if (error) {
+        return (
+            <div className="satellite-info status-error">
+                <h2>{satellite.url}</h2>
+                <h2>Error fetching satellite info: {error.message}</h2>
+            </div>
+        )
+    }
+
     if (satelliteStats){
         let statusClass = ""
-        if (satellite.disqualified){ statusClass="status-disqualified" }
-        else if (satellite.suspended){ statusClass="status-suspended" }
+        if (satellite.disqualified){ statusClass="status-critical" }
+        else if (satellite.suspended){ statusClass="status-error" }
         else if (satelliteStats.audit.successCount / satelliteStats.audit.totalCount <= AUDIT_WARN_TRESHOLD){ statusClass="status-warning" }
         else if (satelliteStats.uptime.successCount / satelliteStats.uptime.totalCount <= UPTIME_WARN_TRESHOLD){ statusClass="status-warning" }
         else if (satelliteStats.audit.successCount < VETTING_AUDITS_NEEDED){ statusClass="status-vetting-in-progress" }

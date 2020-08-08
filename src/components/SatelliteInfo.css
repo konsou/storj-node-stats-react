@@ -18,11 +18,11 @@
     background-color: yellow;
 }
 
-.status-suspended { 
+.status-error { 
     background-color: red; 
 }
 
-.status-disqualified {
+.status-critical {
     background-color: red;
 }
 
