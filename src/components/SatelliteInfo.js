@@ -4,7 +4,7 @@ import './SatelliteInfo.css'
 
 const VETTING_AUDITS_NEEDED = 100
 const AUDIT_WARN_TRESHOLD = 0.95
-const UPTIME_WARN_TRESHOLD = 0.9
+const UPTIME_WARN_TRESHOLD = 0.95
 
 const SatelliteInfo = ({ satellite }) => {
     const [ satelliteStats, setSatelliteStats ] = useState(null)
