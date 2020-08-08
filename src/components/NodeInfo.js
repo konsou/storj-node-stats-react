@@ -6,6 +6,7 @@ import './NodeInfo.css'
 
 const NodeInfo = ({ address }) => {
     const [ nodeStats, setNodeStats ] = useState(null)
+    const [ error, setError ] = useState(null)
 
     useEffect(() => {
         axios
@@ -15,11 +16,20 @@ const NodeInfo = ({ address }) => {
             })
             .catch(error => {
                 console.log(error)
+                setError(error)
             })
 
     }, [ address ]) // runs once at page load
 
 
+    if (error) {
+        return (
+            <div className="node-info">
+                <h1>Node: {address}</h1>
+                <h2>Error fetching node info: {error.message}</h2>
+            </div>
+        )
+    }
     if (nodeStats) {
         return (
             <div className="node-info">
