@@ -30,8 +30,8 @@ const SatelliteInfo = ({ satellite }) => {
                 <ul>
                     <li>Disqualified: { satellite.disqualified ? "YES!" : "no" }</li>
                     <li>Suspended: {satellite.suspended ? "YES!" : "no" }</li>
-                    <li>Successful audits: {satelliteStats.audit.successCount} ({satelliteStats.audit.successCount / satelliteStats.audit.totalCount * 100} %)</li>
-                    <li>{satelliteStats.audit.successCount >= VETTING_AUDITS_NEEDED ? "Vetting complete!" : `Vetting in progress, ${satelliteStats.audit.successCount / VETTING_AUDITS_NEEDED * 100} % complete`}</li>
+                    <li>Successful audits: {satelliteStats.audit.successCount} ({(satelliteStats.audit.successCount / satelliteStats.audit.totalCount * 100).toFixed(1)} %)</li>
+                    <li>{satelliteStats.audit.successCount >= VETTING_AUDITS_NEEDED ? "Vetting complete!" : `Vetting in progress, ${(satelliteStats.audit.successCount / VETTING_AUDITS_NEEDED * 100).toFixed()} % complete`}</li>
                 </ul>
             </div>
         )
