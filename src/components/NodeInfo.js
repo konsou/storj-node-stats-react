@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import SatelliteInfo from './SatelliteInfo'
+import formatStorage from '../utility/formatStorage'
 import './NodeInfo.css'
 
 
@@ -34,7 +35,7 @@ const NodeInfo = ({ address }) => {
         return (
             <div className="node-info">
                 <h1>Node: {address}</h1>
-                <strong>Disk usage {(nodeStats.diskSpace.used / 1000000000).toFixed(2)} GB</strong>
+                <strong>Disk usage {formatStorage(nodeStats.diskSpace.used, 2)}</strong>
                 <h2>Satellites</h2>
                 <ul>
                     { nodeStats.satellites.map( satellite => <SatelliteInfo key={satellite.id} satellite={Object.assign({}, satellite, {nodeAddress: address})} /> ) }

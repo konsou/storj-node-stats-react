@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import formatStorage from '../utility/formatStorage'
 import './SatelliteInfo.css'
 
 const VETTING_AUDITS_NEEDED = 100
@@ -45,6 +46,7 @@ const SatelliteInfo = ({ satellite }) => {
             <div className={`satellite-info ${statusClass}`}>
                 <h2>{satellite.url}</h2>
                 <ul>
+                    <li>Storage this month {formatStorage(satelliteStats.storageSummary, 2)} * h</li>
                     <li>Audit score {(satelliteStats.audit.successCount / satelliteStats.audit.totalCount * 100).toFixed(1)} %</li>
                     <li>Suspension score {(satelliteStats.uptime.successCount / satelliteStats.uptime.totalCount * 100).toFixed(1)} %</li>
                     {satelliteStats.audit.successCount >= VETTING_AUDITS_NEEDED ? <li>Vetting 100 % complete</li> : <li>Vetting {(satelliteStats.audit.successCount / VETTING_AUDITS_NEEDED * 100).toFixed()} % complete</li>}
