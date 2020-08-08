@@ -1,0 +1,8 @@
+.node-info {
+    border: 1px solid black;
+    width: 30em;
+    margin: 0.5em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}

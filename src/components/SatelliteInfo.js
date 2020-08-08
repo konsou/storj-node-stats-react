@@ -26,7 +26,7 @@ const SatelliteInfo = ({ satellite }) => {
     
         return (
             <div className="satellite-info">
-                <h2>Info for satellite {satellite.url}</h2>
+                <h2>{satellite.url}</h2>
                 <ul>
                     <li>Disqualified: { satellite.disqualified ? "YES!" : "no" }</li>
                     <li>Suspended: {satellite.suspended ? "YES!" : "no" }</li>
