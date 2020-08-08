@@ -6,8 +6,29 @@
     margin-right: auto;
 }
 
+.status-vetting-in-progress {
+    background-color: aquamarine;
+}
+
+.status-normal {
+    background-color: green;
+}
+
+.status-warning {
+    background-color: yellow;
+}
+
+.status-suspended { 
+    background-color: red; 
+}
+
+.status-disqualified {
+    background-color: red;
+}
+
 h2 {
     margin: 0.1em;
+    font-size: small;
 }
 
 ul {

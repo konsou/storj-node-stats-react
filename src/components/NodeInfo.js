@@ -11,7 +11,6 @@ const NodeInfo = ({ address }) => {
         axios
             .get(`http://${address}/api/sno`)
             .then(response => {
-                console.log(response.data)
                 setNodeStats(response.data)                
             })
             .catch(error => {
@@ -25,7 +24,7 @@ const NodeInfo = ({ address }) => {
         return (
             <div className="node-info">
                 <h1>Node: {address}</h1>
-                <p>Disk usage {(nodeStats.diskSpace.used / 1000000000).toFixed(2)} GB</p>
+                <strong>Disk usage {(nodeStats.diskSpace.used / 1000000000).toFixed(2)} GB</strong>
                 <h2>Satellites</h2>
                 <ul>
                     { nodeStats.satellites.map( satellite => <SatelliteInfo key={satellite.id} satellite={Object.assign({}, satellite, {nodeAddress: address})} /> ) }

@@ -8,12 +8,9 @@ const SatelliteInfo = ({ satellite }) => {
     const [ satelliteStats, setSatelliteStats ] = useState(null)
 
     useEffect(() => {
-        console.log("in SatelliteInfo effect")
-
         axios
             .get(`http://${satellite.nodeAddress}/api/sno/satellite/${satellite.id}`)
             .then(response => {
-                console.log(response.data)
                 setSatelliteStats(response.data)                
             })
             .catch(error => {
@@ -23,15 +20,19 @@ const SatelliteInfo = ({ satellite }) => {
     }, [ satellite ]) // runs once at page load
 
     if (satelliteStats){
+        let statusClass = ""
+        if (satellite.disqualified){ statusClass="status-disqualified" }
+        else if (satellite.suspended){ statusClass="status-suspended" }
+        else if (satelliteStats.audit.successCount / satelliteStats.audit.totalCount <= .5){ statusClass="status-warning" }
+        else if (satelliteStats.audit.successCount < VETTING_AUDITS_NEEDED){ statusClass="status-vetting-in-progress" }
+        else { statusClass="status-normal" }
     
         return (
-            <div className="satellite-info">
+            <div className={`satellite-info ${statusClass}`}>
                 <h2>{satellite.url}</h2>
                 <ul>
-                    <li>Disqualified: { satellite.disqualified ? "YES!" : "no" }</li>
-                    <li>Suspended: {satellite.suspended ? "YES!" : "no" }</li>
-                    <li>Successful audits: {satelliteStats.audit.successCount} ({(satelliteStats.audit.successCount / satelliteStats.audit.totalCount * 100).toFixed(1)} %)</li>
-                    <li>{satelliteStats.audit.successCount >= VETTING_AUDITS_NEEDED ? "Vetting complete!" : `Vetting in progress, ${(satelliteStats.audit.successCount / VETTING_AUDITS_NEEDED * 100).toFixed()} % complete`}</li>
+                    <li>Audit score {(satelliteStats.audit.successCount / satelliteStats.audit.totalCount * 100).toFixed(1)} %</li>
+                    {satelliteStats.audit.successCount >= VETTING_AUDITS_NEEDED ? "" : <li>Vetting {(satelliteStats.audit.successCount / VETTING_AUDITS_NEEDED * 100).toFixed()} % complete</li>}
                 </ul>
             </div>
         )
