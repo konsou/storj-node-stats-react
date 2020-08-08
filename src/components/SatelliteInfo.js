@@ -3,6 +3,8 @@ import axios from 'axios'
 import './SatelliteInfo.css'
 
 const VETTING_AUDITS_NEEDED = 100
+const AUDIT_WARN_TRESHOLD = 0.95
+const UPTIME_WARN_TRESHOLD = 0.9
 
 const SatelliteInfo = ({ satellite }) => {
     const [ satelliteStats, setSatelliteStats ] = useState(null)
@@ -23,7 +25,8 @@ const SatelliteInfo = ({ satellite }) => {
         let statusClass = ""
         if (satellite.disqualified){ statusClass="status-disqualified" }
         else if (satellite.suspended){ statusClass="status-suspended" }
-        else if (satelliteStats.audit.successCount / satelliteStats.audit.totalCount <= .5){ statusClass="status-warning" }
+        else if (satelliteStats.audit.successCount / satelliteStats.audit.totalCount <= AUDIT_WARN_TRESHOLD){ statusClass="status-warning" }
+        else if (satelliteStats.uptime.successCount / satelliteStats.uptime.totalCount <= UPTIME_WARN_TRESHOLD){ statusClass="status-warning" }
         else if (satelliteStats.audit.successCount < VETTING_AUDITS_NEEDED){ statusClass="status-vetting-in-progress" }
         else { statusClass="status-normal" }
     
@@ -31,7 +34,8 @@ const SatelliteInfo = ({ satellite }) => {
             <div className={`satellite-info ${statusClass}`}>
                 <h2>{satellite.url}</h2>
                 <ul>
-                    <li>Audit score {(satelliteStats.audit.successCount / satelliteStats.audit.totalCount * 100).toFixed(1)} %</li>
+                    <li>Audit {(satelliteStats.audit.successCount / satelliteStats.audit.totalCount * 100).toFixed(1)} %</li>
+                    <li>Uptime {(satelliteStats.uptime.successCount / satelliteStats.uptime.totalCount * 100).toFixed(1)} %</li>
                     {satelliteStats.audit.successCount >= VETTING_AUDITS_NEEDED ? "" : <li>Vetting {(satelliteStats.audit.successCount / VETTING_AUDITS_NEEDED * 100).toFixed()} % complete</li>}
                 </ul>
             </div>
