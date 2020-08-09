@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import formatStorage from '../utility/formatStorage'
+import hoursInThisMonth from '../utility/storageTime'
 import './SatelliteInfo.css'
 
 const VETTING_AUDITS_NEEDED = 100
@@ -50,6 +51,10 @@ const SatelliteInfo = ({ satellite }) => {
                         <tr>
                             <th>Storage this month</th>
                             <td>{formatStorage(satelliteStats.storageSummary, 2)} * h</td>
+                        </tr>
+                        <tr>
+                            <th>Storage yesterday</th>
+                            <td>{formatStorage(satelliteStats.storageDaily[satelliteStats.storageDaily.length - 2].atRestTotal / 24, 2)}</td>
                         </tr>
                         <tr>
                             <th>Audit score</th>
