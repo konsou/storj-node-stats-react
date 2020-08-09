@@ -45,12 +45,31 @@ const SatelliteInfo = ({ satellite }) => {
         return (
             <div className={`satellite-info ${statusClass}`}>
                 <h2>{satellite.url}</h2>
-                <ul>
-                    <li>Storage this month {formatStorage(satelliteStats.storageSummary, 2)} * h</li>
-                    <li>Audit score {(satelliteStats.audit.successCount / satelliteStats.audit.totalCount * 100).toFixed(1)} %</li>
-                    <li>Suspension score {(satelliteStats.uptime.successCount / satelliteStats.uptime.totalCount * 100).toFixed(1)} %</li>
-                    {satelliteStats.audit.successCount >= VETTING_AUDITS_NEEDED ? <li>Vetting 100 % complete</li> : <li>Vetting {(satelliteStats.audit.successCount / VETTING_AUDITS_NEEDED * 100).toFixed()} % complete</li>}
-                </ul>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Storage this month</th>
+                            <td>{formatStorage(satelliteStats.storageSummary, 2)} * h</td>
+                        </tr>
+                        <tr>
+                            <th>Audit score</th>
+                            <td>{(satelliteStats.audit.successCount / satelliteStats.audit.totalCount * 100).toFixed(1)} %</td>
+                        </tr>
+                        <tr>
+                            <th>Suspension score</th>
+                            <td>{(satelliteStats.uptime.successCount / satelliteStats.uptime.totalCount * 100).toFixed(1)} %</td>
+                        </tr>
+                        {satelliteStats.audit.successCount >= VETTING_AUDITS_NEEDED 
+                            ? <tr>
+                                <th>Vetting</th>
+                                <td>100 % complete</td> 
+                            </tr>
+                            : <tr>
+                                <th>Vetting</th>
+                                <td>{(satelliteStats.audit.successCount / VETTING_AUDITS_NEEDED * 100).toFixed()} % complete</td>
+                            </tr>}
+                    </tbody>
+                </table>
             </div>
         )
     } else {

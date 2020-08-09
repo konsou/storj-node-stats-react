@@ -4,6 +4,8 @@
     margin-bottom: 0.5em;
     margin-left: auto;
     margin-right: auto;
+
+    text-align: center;
 }
 
 .status-vetting-in-progress {
@@ -34,4 +36,17 @@ h2 {
 ul {
     margin: 0;
     padding: 0;
+}
+
+table {
+    margin: auto;
+}
+
+th {
+    text-align: left;
+}
+
+td {
+    text-align: left;
+    padding-left: 1em;
 }
