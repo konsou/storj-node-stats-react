@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import formatStorage from '../utility/formatStorage'
-import hoursInThisMonth from '../utility/storageTime'
 import './SatelliteInfo.css'
 
 const VETTING_AUDITS_NEEDED = 100
