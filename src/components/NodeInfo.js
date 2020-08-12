@@ -8,6 +8,7 @@ import './NodeInfo.css'
 const NodeInfo = ({ address }) => {
     const [ nodeStats, setNodeStats ] = useState(null)
     const [ error, setError ] = useState(null)
+    const [ satellitesVisible, setSatellitesVisible ] = useState(true)
 
     useEffect(() => {
         axios
@@ -36,10 +37,19 @@ const NodeInfo = ({ address }) => {
             <div className="node-info">
                 <h1>Node: {address}</h1>
                 <strong>Disk usage {formatStorage(nodeStats.diskSpace.used, 2)}</strong>
-                <h2>Satellites</h2>
-                <ul>
-                    { nodeStats.satellites.map( satellite => <SatelliteInfo key={satellite.id} satellite={Object.assign({}, satellite, {nodeAddress: address})} /> ) }
-                </ul>
+                <h2>Satellites <button onClick={ () => { setSatellitesVisible(!satellitesVisible) } }>{ satellitesVisible ? "Hide" : "Show" }</button> </h2>
+                { satellitesVisible ? 
+                    <div className="satellite-stats">
+                        <ul>
+                            { nodeStats.satellites.map( satellite => <SatelliteInfo key={satellite.id} satellite={Object.assign({}, satellite, {nodeAddress: address})} /> ) }
+                        </ul>
+                    </div>
+                    :
+                    <div className="satellite-stats">
+                        
+                    </div>
+                }
+                
             </div>
         )
     } else {
