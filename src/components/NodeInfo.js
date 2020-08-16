@@ -36,7 +36,7 @@ const NodeInfo = ({ address }) => {
         return (
             <div className="node-info">
                 <h1>Node: {address}</h1>
-                <strong>Disk usage {formatStorage(nodeStats.diskSpace.used, 2)}</strong>
+                <strong>Disk usage {formatStorage(nodeStats.diskSpace.used, 2)} / {formatStorage(nodeStats.diskSpace.available, 2)} ({(nodeStats.diskSpace.used / nodeStats.diskSpace.available * 100).toFixed()} %)</strong>
                 <h2>Satellites <button onClick={ () => { setSatellitesVisible(!satellitesVisible) } }>{ satellitesVisible ? "Hide" : "Show" }</button> </h2>
                 { satellitesVisible ? 
                     <div className="satellite-stats">
