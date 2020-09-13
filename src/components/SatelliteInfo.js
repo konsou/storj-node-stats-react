@@ -65,12 +65,12 @@ const SatelliteInfo = ({ satellite }) => {
                         </tr>
                         <tr>
                             <th>Audit score</th>
-                            // TODO: FIX WHEN DIVIDE BY ZERO
+                            { /* TODO: FIX WHEN DIVIDE BY ZERO */ }
                             <td>{(satelliteStats.audit.successCount / satelliteStats.audit.totalCount * 100).toFixed(1)} %</td>
                         </tr>
                         <tr>
                             <th>Suspension score</th>
-                            // TODO: FIX WHEN DIVIDE BY ZERO
+                            { /* TODO: FIX WHEN DIVIDE BY ZERO */ }
                             <td>{(satelliteStats.uptime.successCount / satelliteStats.uptime.totalCount * 100).toFixed(1)} %</td>
                         </tr>
                         {satelliteStats.audit.successCount >= VETTING_AUDITS_NEEDED 
