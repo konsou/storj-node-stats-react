@@ -41,7 +41,7 @@ const SatelliteInfo = ({ satellite }) => {
         else if (satelliteStats.uptime.successCount / satelliteStats.uptime.totalCount <= UPTIME_WARN_TRESHOLD){ statusClass="status-warning" }
         else if (satelliteStats.audit.successCount < VETTING_AUDITS_NEEDED){ statusClass="status-vetting-in-progress" }
         else { statusClass="status-normal" }
-    
+
         return (
             <div className={`satellite-info ${statusClass}`}>
                 <h2>{satellite.url}</h2>
@@ -53,7 +53,13 @@ const SatelliteInfo = ({ satellite }) => {
                         </tr>
                         <tr>
                             <th>Storage yesterday</th>
-                            <td>{formatStorage(satelliteStats.storageDaily[satelliteStats.storageDaily.length - 2].atRestTotal / 24, 2)}</td>
+                            <td>
+                                { 
+                                    satelliteStats.storageDaily
+                                        ? formatStorage(satelliteStats.storageDaily[satelliteStats.storageDaily.length - 2].atRestTotal / 24, 2)
+                                        : "(no data)" 
+                                }
+                            </td>
                         </tr>
                         <tr>
                             <th>Audit score</th>
