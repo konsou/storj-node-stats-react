@@ -4,6 +4,7 @@ import formatStorage from '../utility/formatStorage'
 import './SatelliteInfo.css'
 
 const VETTING_AUDITS_NEEDED = 100
+// TODO: research these
 const AUDIT_WARN_TRESHOLD = 0.95
 const UPTIME_WARN_TRESHOLD = 0.95
 
@@ -37,6 +38,7 @@ const SatelliteInfo = ({ satellite }) => {
         let statusClass = ""
         if (satellite.disqualified){ statusClass="status-critical" }
         else if (satellite.suspended){ statusClass="status-error" }
+        // TODO: FIX THESE VALUES
         else if (satelliteStats.audit.successCount / satelliteStats.audit.totalCount <= AUDIT_WARN_TRESHOLD){ statusClass="status-warning" }
         else if (satelliteStats.uptime.successCount / satelliteStats.uptime.totalCount <= UPTIME_WARN_TRESHOLD){ statusClass="status-warning" }
         else if (satelliteStats.audit.successCount < VETTING_AUDITS_NEEDED){ statusClass="status-vetting-in-progress" }
@@ -63,10 +65,12 @@ const SatelliteInfo = ({ satellite }) => {
                         </tr>
                         <tr>
                             <th>Audit score</th>
+                            // TODO: FIX WHEN DIVIDE BY ZERO
                             <td>{(satelliteStats.audit.successCount / satelliteStats.audit.totalCount * 100).toFixed(1)} %</td>
                         </tr>
                         <tr>
                             <th>Suspension score</th>
+                            // TODO: FIX WHEN DIVIDE BY ZERO
                             <td>{(satelliteStats.uptime.successCount / satelliteStats.uptime.totalCount * 100).toFixed(1)} %</td>
                         </tr>
                         {satelliteStats.audit.successCount >= VETTING_AUDITS_NEEDED 
